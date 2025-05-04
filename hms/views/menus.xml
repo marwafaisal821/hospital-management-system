@@ -1,0 +1,6 @@
+<odoo>
+    <menuitem id="hms_menu" name="HMS"/>
+    <menuitem id="patient_menu" name="Patients" parent="hms_menu" action="action_patient"/>
+    <menuitem id="hms_doctor_menu" parent="hms_menu" name="Doctors" action="action_doctor"/>
+    <menuitem id="hms_department_menu" parent="hms_menu" name="Departments" action="action_department"/>
+</odoo>

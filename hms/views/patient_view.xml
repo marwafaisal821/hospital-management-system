@@ -1,0 +1,47 @@
+<odoo>
+    <record id="action_patient" model="ir.actions.act_window">
+        <field name="res_model">hms.patient</field>
+        <field name="name">Patients</field>
+    </record>
+
+    <record id="view_patient_form" model="ir.ui.view">
+        <field name="name">hms.patient.form</field>
+        <field name="model">hms.patient</field>
+        <field name="arch" type="xml">
+            <form>
+            <header>
+                        <!-- زرار طباعة التقرير -->
+                        <button name="print_patient_report" type="object" string="Print Report" class="btn-primary"/>
+                    </header>
+                    
+                <sheet>
+                    <group>
+                        <field name="first_name"/>
+                        <field name="last_name"/>
+                        <field name="birthdate"/>
+                        <field name="age" readonly="1"/>
+                        <field name="email"/>
+                        <field name="image"/>
+                        <field name="address"/>
+                        <field name="blood_type"/>
+                        <field name="department_id"/>
+                        <field name="doctor_ids" widget="many2many_tags"/>
+                        <field name="state"/>
+                        <field name="pcr"/>
+                        <field name="cr_ratio"/>
+                        <field name="history"/>
+                    </group>
+                    <group string="Log History" colspan="2">
+                        <field name="log_history_ids" nolabel="1">
+                            <tree>
+                                <field name="create_date"/>
+                                <field name="created_by"/>
+                                <field name="description"/>
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

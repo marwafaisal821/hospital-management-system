@@ -1,0 +1,61 @@
+<odoo>
+    <data noupdate="0">
+
+        <!-- Security Category -->
+        <record id="module_hms_category" model="ir.module.category">
+            <field name="name">Hospital Management</field>
+            <field name="description">HMS Access Rights</field>
+            <field name="sequence">1</field>
+        </record>
+
+        <!-- User Group -->
+        <record id="group_hms_user" model="res.groups">
+            <field name="name">HMS User</field>
+            <field name="category_id" ref="module_hms_category"/>
+            <field name="users" eval="[(4, ref('base.group_user'))]"/>
+        </record>
+
+        <!-- Manager Group -->
+        <record id="group_hms_manager" model="res.groups">
+            <field name="name">HMS Manager</field>
+            <field name="category_id" ref="module_hms_category"/>
+            <field name="implied_ids" eval="[(4, ref('group_hms_user'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <!-- Patient Record Rules -->
+        <record id="patient_user_rule" model="ir.rule">
+            <field name="name">User: Own Patients Only</field>
+            <field name="model_id" ref="model_hms_patient"/>
+            <field name="domain_force">[('create_uid', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_hms_user'))]"/>
+        </record>
+
+        <!-- Manager Rules -->
+        <record id="hms_manager_rule" model="ir.rule">
+            <field name="name">Manager Full Access</field>
+            <field name="model_id" ref="model_hms_patient"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_hms_manager'))]"/>
+        </record>
+
+        <!-- View for User/Password Management -->
+        <record id="view_users_form_simple_modif_inherit" model="ir.ui.view">
+            <field name="name">res.users.form.simple.modif.inherit</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+            <field name="arch" type="xml">
+                <field name="email" position="after">
+                    <field name="password" password="True" required="True"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Menu Items -->
+        <record id="menu_hms_doctor" model="ir.ui.menu">
+            <field name="name">Doctors</field>
+            <field name="groups_id" eval="[(6, 0, [ref('group_hms_manager')])]"/>
+        </record>
+
+    </data>
+</odoo>

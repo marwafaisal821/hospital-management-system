@@ -1,0 +1,13 @@
+<odoo>
+    <record id="view_log_history_tree" model="ir.ui.view">
+        <field name="name">hms.log.history.tree</field>
+        <field name="model">hms.log.history</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="create_date"/>
+                <field name="created_by"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+</odoo>
